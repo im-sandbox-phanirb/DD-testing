@@ -1,0 +1,90 @@
+{
+  "agentGroupId": "AGENT_DD_INTERNAL_NETWORK",
+  "agentRequired": false,
+  "agentSupported": true,
+  "connectionProperties": [
+    {
+      "displayName": "Connection Type",
+      "hasAttachment": false,
+      "hiddenFlag": false,
+      "propertyGroup": "CONNECTION_PROPS",
+      "propertyName": "connectionType",
+      "propertyType": "CHOICE",
+      "propertyValue": "restUrl",
+      "requiredFlag": true
+    },
+    {
+      "displayName": "TLS Version",
+      "hasAttachment": false,
+      "hiddenFlag": false,
+      "propertyGroup": "CONNECTION_PROPS",
+      "propertyName": "tlsVersion",
+      "propertyShortDesc": "TLS Version",
+      "propertyType": "CHOICE",
+      "propertyValue": "TLSv1.2",
+      "requiredFlag": false
+    },
+    {
+      "displayName": "Connection URL",
+      "hasAttachment": false,
+      "hiddenFlag": false,
+      "propertyGroup": "CONNECTION_PROPS",
+      "propertyName": "connectionUrl",
+      "propertyShortDesc": "Please make sure that this value really corresponds to the type selected above.",
+      "propertyType": "URL",
+      "propertyValue": "https://g4afc71a78775a1-atppoc.adb.us-ashburn-1.oraclecloudapps.com/ords/lgw",
+      "requiredFlag": true
+    },
+    {
+      "displayName": "Enable two way SSL for outbound connections (Optional)",
+      "hasAttachment": false,
+      "hiddenFlag": false,
+      "propertyDescription": "Both the client and the server pass certificates to each other to establish an SSL link, when two-way SSL is enabled. Both sides now know the identity of the other from their respective certificates.",
+      "propertyGroup": "CONNECTION_PROPS",
+      "propertyName": "enableTwoWaySSL",
+      "propertyShortDesc": "Select \"Yes\" if both the client and server should authenticate each other.",
+      "propertyType": "CHOICE",
+      "requiredFlag": false
+    },
+    {
+      "displayName": "Identity keystore alias name (Optional)",
+      "hasAttachment": false,
+      "hiddenFlag": false,
+      "propertyDescription": "Both the client and the server pass certificates to each other to establish an SSL link, when two-way SSL is enabled. Name of the identity certificate alias to use for that communication. This value should match the alias that was provided to import identity to ICS.",
+      "propertyGroup": "CONNECTION_PROPS",
+      "propertyName": "sslCertificateAlias",
+      "propertyShortDesc": "Name of alias to use for establishing identity during two way SSL communication",
+      "propertyType": "STRING",
+      "requiredFlag": false
+    }
+  ],
+  "description": "Connection to invoke different services available as part of the log warehouse system.",
+  "id": "DD_LGW_REST_SERVICE",
+  "keywords": "LGW,REST",
+  "role": "TARGET",
+  "securityPolicy": "BASIC_AUTH",
+  "securityProperties": [
+    {
+      "displayName": "Username",
+      "hasAttachment": false,
+      "hiddenFlag": false,
+      "propertyDescription": "A username credential",
+      "propertyGroup": "CREDENTIALS",
+      "propertyName": "username",
+      "propertyType": "STRING",
+      "propertyValue": "DD_LGW",
+      "requiredFlag": true
+    },
+    {
+      "displayName": "Password",
+      "hasAttachment": false,
+      "hiddenFlag": false,
+      "propertyDescription": "A password credential",
+      "propertyGroup": "CREDENTIALS",
+      "propertyName": "password",
+      "propertyType": "PASSWORD",
+      "propertyValue": "*****",
+      "requiredFlag": true
+    }
+  ]
+}

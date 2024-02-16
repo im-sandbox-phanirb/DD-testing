@@ -1,0 +1,23 @@
+{
+									"integrations": [
+										{
+											"code": "DD_EPM_PATH_REPOR_EXTRA_EXC",
+											"connections": [
+  {
+    "id": "DD_ORACLE_ATP"
+  },
+  {
+    "id": "DD_LGW_REST_SERVICE"
+  },
+  {
+    "id": "DD_EXTERNAL_REPORT_SERVICE"
+  }
+],
+											"lookups": [
+  {
+    "name": "DD_COMMON_INT_PROPERTIES"
+  }
+]
+										}
+									]
+									}

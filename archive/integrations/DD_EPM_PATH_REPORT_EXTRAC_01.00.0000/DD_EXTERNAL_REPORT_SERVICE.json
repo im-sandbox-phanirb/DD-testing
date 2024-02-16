@@ -1,0 +1,109 @@
+{
+  "agentRequired": false,
+  "agentSupported": true,
+  "connectionProperties": [
+    {
+      "displayName": "WSDL URL",
+      "hasAttachment": false,
+      "hiddenFlag": false,
+      "propertyGroup": "CONNECTION_PROPS",
+      "propertyName": "targetWSDLURL",
+      "propertyType": "URL_OR_FILE",
+      "propertyValue": "https://fa-ejep-dev4-saasfaprod1.fa.ocs.oraclecloud.com/xmlpserver/services/ExternalReportWSSService?WSDL",
+      "requiredFlag": true
+    },
+    {
+      "displayName": "Service WSDL",
+      "hasAttachment": false,
+      "hiddenFlag": false,
+      "propertyGroup": "CONNECTION_PROPS",
+      "propertyName": "ServiceWSDL",
+      "propertyType": "CHOICE",
+      "requiredFlag": false
+    },
+    {
+      "displayName": "Target Server's TLS version (Optional)",
+      "hasAttachment": false,
+      "hiddenFlag": false,
+      "propertyDescription": "Target server's TLS protocol version. Default is TLSv1.1. Possible values TLSv1.1, TLSv1.2",
+      "propertyGroup": "CONNECTION_PROPS",
+      "propertyName": "tlsVersion",
+      "propertyShortDesc": "Target server's Transport Layer Security (TLS) protocol version. Default is TLSv1.1",
+      "propertyType": "CHOICE",
+      "propertyValue": "TLSv1.2",
+      "requiredFlag": false
+    },
+    {
+      "displayName": "Suppress insertion of timestamp into the request (Optional)",
+      "hasAttachment": false,
+      "hiddenFlag": false,
+      "propertyDescription": "In secure Web Services transactions, a WS-Utility (WSU) Timestamp can be inserted into a WS-Security Header \nto define the lifetime of the message in which it is placed. \n\n  If \"Yes\" is selected, no timestamp will be added to WS-Security \n header sent as part of the outbound request. For inbound requests with Basic Auth security policy, no timestamp is required to be sent by the client.",
+      "propertyGroup": "CONNECTION_PROPS",
+      "propertyName": "suppressTimestampForRequest",
+      "propertyShortDesc": "If \"Yes\" is selected, no timestamp will be added to WS-Security header sent as part of the outbound request. For inbound requests with Basic Auth security policy, no timestamp is required.",
+      "propertyType": "CHOICE",
+      "requiredFlag": false
+    },
+    {
+      "displayName": "Ignore timestamp in the response message (Optional)",
+      "hasAttachment": false,
+      "hiddenFlag": false,
+      "propertyDescription": "Property used by the client to ignore the timestamp \n in the SOAP security header when it receives the response from the service. \n If \"Yes\", then the timestamp is not required in the response \n message; if the timestamp is present, it is ignored.",
+      "propertyGroup": "CONNECTION_PROPS",
+      "propertyName": "ignoreTimestampInResponse",
+      "propertyShortDesc": "If \"Yes\", then the timestamp is not required in the response message",
+      "propertyType": "CHOICE",
+      "requiredFlag": false
+    },
+    {
+      "displayName": "Enable two way SSL for outbound connections (Optional)",
+      "hasAttachment": false,
+      "hiddenFlag": false,
+      "propertyDescription": "Both the client and the server pass certificates to each other to establish an SSL link, when two-way SSL is enabled.Both sides now know the identity of the other from their respective certificates.",
+      "propertyGroup": "CONNECTION_PROPS",
+      "propertyName": "enableTwoWaySSL",
+      "propertyShortDesc": "Select \"Yes\" if both the client and server should authenticate each other.",
+      "propertyType": "CHOICE",
+      "requiredFlag": false
+    },
+    {
+      "displayName": "Identity keystore alias name (Optional)",
+      "hasAttachment": false,
+      "hiddenFlag": false,
+      "propertyDescription": "Both the client and the server pass certificates to each other to establish an SSL link, when two-way SSL is enabled. Name of the identity certificate alias to use for that communication. This value should match the alias that was provided to import identity to ICS.",
+      "propertyGroup": "CONNECTION_PROPS",
+      "propertyName": "sslCertificateAlias",
+      "propertyShortDesc": "Name of alias to use for establishing identity during two way SSL communication",
+      "propertyType": "STRING",
+      "requiredFlag": false
+    }
+  ],
+  "description": "",
+  "id": "DD_EXTERNAL_REPORT_SERVICE",
+  "role": "SOURCE_AND_TARGET",
+  "securityPolicy": "BASIC_AUTH",
+  "securityProperties": [
+    {
+      "displayName": "Username",
+      "hasAttachment": false,
+      "hiddenFlag": false,
+      "propertyDescription": "A username credential",
+      "propertyGroup": "CREDENTIALS",
+      "propertyName": "username",
+      "propertyType": "STRING",
+      "propertyValue": "DD.INTG_FIN",
+      "requiredFlag": true
+    },
+    {
+      "displayName": "Password",
+      "hasAttachment": false,
+      "hiddenFlag": false,
+      "propertyDescription": "A password credential",
+      "propertyGroup": "CREDENTIALS",
+      "propertyName": "password",
+      "propertyType": "PASSWORD",
+      "propertyValue": "*****",
+      "requiredFlag": true
+    }
+  ]
+}

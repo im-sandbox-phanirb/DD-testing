@@ -1,0 +1,99 @@
+{
+  "agentGroupId": "AGENT_DD_INTERNAL_NETWORK",
+  "agentRequired": false,
+  "agentSupported": true,
+  "connectionProperties": [
+    {
+      "displayName": "Host",
+      "hasAttachment": false,
+      "hiddenFlag": false,
+      "propertyGroup": "CONNECTION_PROPS",
+      "propertyName": "Host",
+      "propertyType": "STRING",
+      "requiredFlag": false
+    },
+    {
+      "displayName": "Port",
+      "hasAttachment": false,
+      "hiddenFlag": false,
+      "propertyGroup": "CONNECTION_PROPS",
+      "propertyName": "Port",
+      "propertyType": "STRING",
+      "requiredFlag": false
+    },
+    {
+      "displayName": "SID",
+      "hasAttachment": false,
+      "hiddenFlag": false,
+      "propertyGroup": "CONNECTION_PROPS",
+      "propertyName": "SID",
+      "propertyType": "STRING",
+      "requiredFlag": false
+    },
+    {
+      "displayName": "Service Name",
+      "hasAttachment": false,
+      "hiddenFlag": false,
+      "propertyGroup": "CONNECTION_PROPS",
+      "propertyName": "ServiceName",
+      "propertyType": "STRING",
+      "propertyValue": "stagedev_tp",
+      "requiredFlag": false
+    }
+  ],
+  "description": "",
+  "id": "DD_ORACLE_ATP",
+  "role": "SOURCE_AND_TARGET",
+  "securityPolicy": "JDBC_OVER_SSL",
+  "securityProperties": [
+    {
+      "attachment": {
+        "attachmentName": "Wallet_stagedev_with_ip.zip",
+        "propertyName": "WALLET",
+        "signature": "0953b92c89bd1129db91ce477b16f31269e2ae773236a3586e35bf10a63b6d5a"
+      },
+      "displayName": "Wallet",
+      "hasAttachment": true,
+      "hiddenFlag": false,
+      "propertyGroup": "CREDENTIALS",
+      "propertyName": "WALLET",
+      "propertyShortDesc": "Please upload wallet (client credentials)",
+      "propertyType": "URL_OR_FILE",
+      "propertyValue": "Wallet_stagedev_with_ip.zip",
+      "requiredFlag": true
+    },
+    {
+      "displayName": "Wallet Password",
+      "hasAttachment": false,
+      "hiddenFlag": false,
+      "propertyGroup": "CREDENTIALS",
+      "propertyName": "WALLETPASSWORD",
+      "propertyShortDesc": "Please provide wallet password",
+      "propertyType": "PASSWORD",
+      "propertyValue": "*****",
+      "requiredFlag": true
+    },
+    {
+      "displayName": "Database Service Username",
+      "hasAttachment": false,
+      "hiddenFlag": false,
+      "propertyGroup": "CREDENTIALS",
+      "propertyName": "UserName",
+      "propertyShortDesc": "Please provide Database Service Username",
+      "propertyType": "STRING",
+      "propertyValue": "dd_int",
+      "requiredFlag": true
+    },
+    {
+      "displayName": "Database Service Password",
+      "hasAttachment": false,
+      "hiddenFlag": false,
+      "propertyGroup": "CREDENTIALS",
+      "propertyName": "Password",
+      "propertyShortDesc": "Please provide Database Service Password",
+      "propertyType": "PASSWORD",
+      "propertyValue": "*****",
+      "requiredFlag": true
+    }
+  ]
+}
