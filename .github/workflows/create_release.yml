@@ -17,8 +17,8 @@ jobs:
         cat $JSON_file
         rec_num=$(jq '.integrations | length' $JSON_file)
         echo "rec_num: $rec_num"
-        # create empty json array
-        echo "[]" > $ARCHIVE_DIR/Release.json
+        # create empty json object with "integrations" key
+        echo '{"integrations": []}' > $ARCHIVE_DIR/Release.json
         for (( i=0; i < $rec_num; i++))
         do
           INTEGRATION_ID=$(jq -r '.integrations['$i'] | .code' $JSON_file)
@@ -29,8 +29,8 @@ jobs:
           # copy the $INTEGRATION_ID.json from $INTEGRATION_ID_$INTEGRATION_VERSION folder to the archive/integrations/$INTEGRATION_ID.json
           cp $ARCHIVE_DIR/${INTEGRATION_ID}_${INTEGRATION_VERSION}/$INTEGRATION_ID.json $ARCHIVE_DIR/${INTEGRATION_ID}.json
     
-          # append the json object to the array in Release.json
-          jq '. += [input]' $ARCHIVE_DIR/Release.json $ARCHIVE_DIR/${INTEGRATION_ID}.json > temp && mv temp $ARCHIVE_DIR/Release.json
+          # append the json object to the "integrations" array in Release.json
+          jq '.integrations += [input.integrations[0]]' $ARCHIVE_DIR/Release.json $ARCHIVE_DIR/${INTEGRATION_ID}.json > temp && mv temp $ARCHIVE_DIR/Release.json
         done
         cat $ARCHIVE_DIR/Release.json
         release_notes=$(cat $ARCHIVE_DIR/Release.json)
