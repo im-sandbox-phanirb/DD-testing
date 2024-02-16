@@ -33,9 +33,9 @@ jobs:
           jq '. += [input]' $ARCHIVE_DIR/Release.json $ARCHIVE_DIR/${INTEGRATION_ID}.json > temp && mv temp $ARCHIVE_DIR/Release.json
         done
         cat $ARCHIVE_DIR/Release.json
-        release_notes=$(jq -c . $ARCHIVE_DIR/Release.json)
+        release_notes=$(cat $ARCHIVE_DIR/Release.json)
         echo "release_notes: $release_notes"
-        echo "release_notes=$release_notes" >> $GITHUB_ENV
+        echo "release_notes=$release_notes" >> $GITHUB_OUTPUT
       
     - name: Create Release
       id: create_release
@@ -47,7 +47,7 @@ jobs:
           release_name: 2.0.${{ github.run_number }}
           draft: false
           prerelease: false
-          body: ${{ env.release_notes }}
+          body: ${{ steps.prepare_notes.outputs.release_notes }}
          
     
      
