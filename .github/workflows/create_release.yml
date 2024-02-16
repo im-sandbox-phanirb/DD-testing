@@ -47,7 +47,7 @@ jobs:
           release_name: 2.0.${{ github.run_number }}
           draft: false
           prerelease: false
-          body: ${{ steps.prepare_notes.outputs.release_notes }}
+          body: ${{ toJSON(fromJSON(steps.prepare_notes.outputs.release_notes)) }}
          
     
      
