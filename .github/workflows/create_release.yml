@@ -33,7 +33,7 @@ jobs:
           jq '.integrations += [input.integrations[0]]' $ARCHIVE_DIR/Release.json $ARCHIVE_DIR/${INTEGRATION_ID}.json > temp && mv temp $ARCHIVE_DIR/Release.json
         done
         cat $ARCHIVE_DIR/Release.json
-        release_notes=$(jq -c . $ARCHIVE_DIR/Release.json)
+        release_notes=$(cat $ARCHIVE_DIR/Release.json)
         echo "release_notes: $release_notes"
         echo "::set-output name=release_notes::$(echo "$release_notes" | base64 --wrap=0)"
 
