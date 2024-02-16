@@ -36,16 +36,6 @@ jobs:
         release_notes=$(jq -c . $ARCHIVE_DIR/Release.json)
         echo "release_notes=$release_notes" >> $GITHUB_OUTPUT
 
-    # - name: Prepare Release Notes
-    #   id: prepare_notes1
-    #   run: |
-    #     echo "## Release Notes" > release_notes.md
-    #     # echo ${{ steps.prepare_notes.outputs.release_notes }} >> release_notes.md
-    #     ```json
-    #         ## Original Request
-    #         ${{ toJSON(fromJSON(steps.prepare_notes.outputs.release_notes)) }} >> release_notes.md
-    #         ```
-
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -57,7 +47,9 @@ jobs:
           draft: false
           prerelease: false
           body: |
+            ## Release Notes
+            Below Integration, connections & lookups files are included in this release.
+            
             ```json
-            ## Original Request
             ${{ toJSON(fromJSON(steps.prepare_notes.outputs.release_notes)) }}
             ```
