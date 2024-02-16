@@ -32,9 +32,13 @@ jobs:
           # append the json object to the array in Release.json
           jq '. += [input]' $ARCHIVE_DIR/Release.json $ARCHIVE_DIR/${INTEGRATION_ID}.json > temp && mv temp $ARCHIVE_DIR/Release.json
         done
-        echo "release_notes<<EOF" >> $GITHUB_ENV
+        # echo "release_notes<<EOF" >> $GITHUB_ENV
+        # cat $ARCHIVE_DIR/Release.json
+        # echo "EOF" >> $GITHUB_ENV
         cat $ARCHIVE_DIR/Release.json
-        echo "EOF" >> $GITHUB_ENV
+        release_notes=$(cat $ARCHIVE_DIR/Release.json)
+        echo "release_notes: $release_notes"
+        echo "release_notes=$release_notes" >> $GITHUB_ENV
       
     - name: Create Release
       id: create_release
