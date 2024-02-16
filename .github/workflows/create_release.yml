@@ -9,6 +9,33 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3         
           
+    - name: Prepare Release Notes
+      id: prepare_notes
+      run: |
+        ARCHIVE_DIR=archive/integrations
+        JSON_file=$ARCHIVE_DIR/config.json
+        cat $JSON_file
+        rec_num=$(jq '.integrations | length' $JSON_file)
+        echo "rec_num: $rec_num"
+        # create empty json array
+        echo "[]" > $ARCHIVE_DIR/Release.json
+        for (( i=0; i < $rec_num; i++))
+        do
+          INTEGRATION_ID=$(jq -r '.integrations['$i'] | .code' $JSON_file)
+          INTEGRATION_VERSION=$(jq -r '.integrations['$i'] | .version' $JSON_file)
+          echo "INTEGRATION_ID: $INTEGRATION_ID"
+          echo "INTEGRATION_VERSION: $INTEGRATION_VERSION"
+    
+          # copy the $INTEGRATION_ID.json from $INTEGRATION_ID_$INTEGRATION_VERSION folder to the archive/integrations/$INTEGRATION_ID.json
+          cp $ARCHIVE_DIR/${INTEGRATION_ID}_${INTEGRATION_VERSION}/$INTEGRATION_ID.json $ARCHIVE_DIR/${INTEGRATION_ID}.json
+    
+          # append the json object to the array in Release.json
+          jq '. += [input]' $ARCHIVE_DIR/Release.json $ARCHIVE_DIR/${INTEGRATION_ID}.json > temp && mv temp $ARCHIVE_DIR/Release.json
+        done
+        echo "release_notes<<EOF" >> $GITHUB_ENV
+        cat $ARCHIVE_DIR/Release.json
+        echo "EOF" >> $GITHUB_ENV
+      
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -18,12 +45,8 @@ jobs:
           tag_name: 2.0.${{ github.run_number }}
           release_name: 2.0.${{ github.run_number }}
           draft: false
-          prerelease: false    
-          body: |
-              **Changes:**
-              - Added new feature
-              - Fixed bug
-              - Improved performance
+          prerelease: false
+          body: ${{ env.release_notes }}
          
     
      
