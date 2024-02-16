@@ -8,7 +8,7 @@ jobs:
     steps:        
     - name: Checkout repository
       uses: actions/checkout@v3         
-          
+
     - name: Prepare Release Notes
       id: prepare_notes
       run: |
@@ -25,10 +25,10 @@ jobs:
           INTEGRATION_VERSION=$(jq -r '.integrations['$i'] | .version' $JSON_file)
           echo "INTEGRATION_ID: $INTEGRATION_ID"
           echo "INTEGRATION_VERSION: $INTEGRATION_VERSION"
-    
+
           # copy the $INTEGRATION_ID.json from $INTEGRATION_ID_$INTEGRATION_VERSION folder to the archive/integrations/$INTEGRATION_ID.json
           cp $ARCHIVE_DIR/${INTEGRATION_ID}_${INTEGRATION_VERSION}/$INTEGRATION_ID.json $ARCHIVE_DIR/${INTEGRATION_ID}.json
-    
+
           # append the json object to the "integrations" array in Release.json
           jq '.integrations += [input.integrations[0]]' $ARCHIVE_DIR/Release.json $ARCHIVE_DIR/${INTEGRATION_ID}.json > temp && mv temp $ARCHIVE_DIR/Release.json
         done
@@ -36,6 +36,12 @@ jobs:
         release_notes=$(jq -c . $ARCHIVE_DIR/Release.json)
         echo "release_notes: $release_notes"
         echo "::set-output name=release_notes::$(echo "$release_notes" | base64 --wrap=0)"
+
+    - name: Decode Release Notes
+      id: decode_notes
+      run: |
+        release_notes=$(echo "${{ steps.prepare_notes.outputs.release_notes }}" | base64 --decode)
+        echo "::set-output name=release_notes::$release_notes"
 
     - name: Create Release
       id: create_release
@@ -47,7 +53,4 @@ jobs:
           release_name: 2.0.${{ github.run_number }}
           draft: false
           prerelease: false
-          body: ${{ steps.prepare_notes.outputs.release_notes | base64decode }}
-         
-    
-     
+          body: ${{ steps.decode_notes.outputs.release_notes }}
