@@ -34,7 +34,7 @@ jobs:
         done
         cat $ARCHIVE_DIR/Release.json
         release_notes=$(jq -c . $ARCHIVE_DIR/Release.json)
-        echo "release_notes: $release_notes" >> $GITHUB_OUTPUT
+        echo "release_notes=$release_notes" >> $GITHUB_OUTPUT
 
     - name: Create Release
       id: create_release
@@ -46,4 +46,7 @@ jobs:
           release_name: 2.0.${{ github.run_number }}
           draft: false
           prerelease: false
-          body: ${{ steps.prepare_notes.outputs.release_notes }}
+          body: |
+            ## Release Notes
+            Below Integration, connections & lookups files are included in this release.
+            ${{ steps.prepare_notes.outputs.release_notes }}
