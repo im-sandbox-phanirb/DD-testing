@@ -1,0 +1,58 @@
+name: Create release after pull request
+on:
+  workflow_dispatch:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    steps:        
+    - name: Checkout repository
+      uses: actions/checkout@v3         
+          
+    - name: List Files in Archive Directory
+      run: |
+          ls -la 
+          ls -la ./archive
+        
+    - name: Create Archive
+      run: |
+          zip -r MY_INTEGRATION_FILE.zip ./archive
+          
+          
+    - name: List Files in Archive Directory
+      run: |
+          ls -la 
+          ls -la ./archive
+          
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+          tag_name: 2.0.${{ github.run_number }}
+          release_name: 2.0.${{ github.run_number }}
+          draft: false
+          prerelease: false    
+         
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./MY_INTEGRATION_FILE.zip
+          asset_name: MY_INTEGRATION_FILE.zip
+          asset_content_type: application/zip    
+          
+    - name: Delete Branch
+      uses: ./actions/delete-branch
+      with:
+        SECURITY_TOKEN: ${{ secrets.SECURITY_TOKEN }}
+        MAIN_BRANCH: main
+        BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
+     
