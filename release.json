@@ -1,0 +1,25 @@
+{
+    "config": {
+      "exportAllIntegrations": false,
+      "errorHandling": true,
+      "revertOnError": true,
+      "revertRelease": "2.0.22 February 15 2024"
+    },
+    "integrations": [
+      {
+        "code": "DD_EPM_PATH_REPORT_EXTRAC",
+        "version": "01.00.0000"
+      }
+    ],
+    "atp": [
+      {
+        "file": "sqly789160",
+        "name": "sql010290"
+      },
+      {
+        "file": "sql2",
+        "name": "sql6781"
+      }
+    ]
+  }
+  

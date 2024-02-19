@@ -26,6 +26,7 @@ jobs:
             echo "INTEGRATION_VERSION: $INTEGRATION_VERSION"
 
             cp $ARCHIVE_DIR/${INTEGRATION_ID}_${INTEGRATION_VERSION} release/integrations
+            ls -l release/integrations
           done
 
           zip -r MY_INTEGRATION_FILE.zip ./release
