@@ -15,7 +15,7 @@ jobs:
           mkdir -p release/integrations
           # read folder names from the release.json and copy the folder to the release/integrations folder
           ARCHIVE_DIR=archive/integrations
-          JSON_file=release.json
+          JSON_file=$release.json
           rec_num=$(jq '.integrations | length' $JSON_file)
           echo "rec_num: $rec_num"
           for (( i=0; i < $rec_num; i++))
@@ -29,6 +29,7 @@ jobs:
             ls -l release/integrations
           done
 
+          cp release.json release/integrations/release.json
           zip -r MY_INTEGRATION_FILE.zip ./release
                     
     - name: Print tag name
