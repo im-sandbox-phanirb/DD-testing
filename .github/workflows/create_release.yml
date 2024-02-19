@@ -7,7 +7,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:        
     - name: Checkout repository
-      uses: actions/checkout@v3         
+      uses: actions/checkout@v3  
+
+    - name: Create Archive
+      run: |
+          zip -r MY_INTEGRATION_FILE.zip ./archive
+                    
+    - name: Print tag name
+      run: echo "Tag:${{ steps.get_tag_name.outputs.tag_name }}"
 
     - name: Prepare Release Notes
       id: prepare_notes
@@ -53,3 +60,15 @@ jobs:
             ```json
             ${{ toJSON(fromJSON(steps.prepare_notes.outputs.release_notes)) }}
             ```
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./MY_INTEGRATION_FILE.zip
+          asset_name: MY_INTEGRATION_FILE.zip
+          asset_content_type: application/zip  
+
+      
