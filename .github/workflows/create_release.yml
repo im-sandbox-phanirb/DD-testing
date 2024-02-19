@@ -28,8 +28,8 @@ jobs:
             cp -r $ARCHIVE_DIR/${INTEGRATION_ID}_${INTEGRATION_VERSION} release/integrations
             ls -l release/integrations
           done
-
           cp release.json release/integrations/release.json
+          ls -l release/integrations
           zip -r MY_INTEGRATION_FILE.zip ./release
                     
     - name: Print tag name
