@@ -11,7 +11,24 @@ jobs:
 
     - name: Create Archive
       run: |
-          zip -r MY_INTEGRATION_FILE.zip ./archive
+          rm -f release/*
+          mkdir -p release/integrations
+          # read folder names from the release.json and copy the folder to the release/integrations folder
+          ARCHIVE_DIR=archive/integrations
+          JSON_file=release.json
+          rec_num=$(jq '.integrations | length' $JSON_file)
+          echo "rec_num: $rec_num"
+          for (( i=0; i < $rec_num; i++))
+          do
+            INTEGRATION_ID=$(jq -r '.integrations['$i'] | .code' $JSON_file)
+            INTEGRATION_VERSION=$(jq -r '.integrations['$i'] | .version' $JSON_file)
+            echo "INTEGRATION_ID: $INTEGRATION_ID"
+            echo "INTEGRATION_VERSION: $INTEGRATION_VERSION"
+
+            cp $ARCHIVE_DIR/${INTEGRATION_ID}_${INTEGRATION_VERSION} release/integrations
+          done
+
+          zip -r MY_INTEGRATION_FILE.zip ./release
                     
     - name: Print tag name
       run: echo "Tag:${{ steps.get_tag_name.outputs.tag_name }}"
