@@ -25,7 +25,7 @@ jobs:
             echo "INTEGRATION_ID: $INTEGRATION_ID"
             echo "INTEGRATION_VERSION: $INTEGRATION_VERSION"
 
-            cp $ARCHIVE_DIR/${INTEGRATION_ID}_${INTEGRATION_VERSION} release/integrations
+            cp -r $ARCHIVE_DIR/${INTEGRATION_ID}_${INTEGRATION_VERSION} release/integrations
             ls -l release/integrations
           done
 
@@ -38,7 +38,7 @@ jobs:
       id: prepare_notes
       run: |
         ARCHIVE_DIR=archive/integrations
-        JSON_file=$ARCHIVE_DIR/config.json
+        JSON_file=release.json
         cat $JSON_file
         rec_num=$(jq '.integrations | length' $JSON_file)
         echo "rec_num: $rec_num"
