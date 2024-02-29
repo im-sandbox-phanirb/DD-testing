@@ -8,6 +8,9 @@ jobs:
   check-label:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3  
+        
       - name: Check if PR has 'release' label
         run: |
           LABEL_NAME="release"
