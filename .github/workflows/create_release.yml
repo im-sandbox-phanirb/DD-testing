@@ -5,26 +5,26 @@ on:
   workflow_dispatch:
 
 jobs:
-  check-label:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3  
+  # check-label:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v3  
 
-      - name: Check if PR has 'release' label
-        run: |
-          LABEL_NAME="release"
-          PR_NUMBER=${{ github.event.pull_request.number }}
-          LABELS=$(gh pr view $PR_NUMBER --json labels --jq '[.labels[].name]')
-          if [[ $LABELS != *"$LABEL_NAME"* ]]; then
-            echo "Error: This workflow can only run when the PR has the '$LABEL_NAME' label."
-            exit 1
-          fi
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #     - name: Check if PR has 'release' label
+  #       run: |
+  #         LABEL_NAME="release"
+  #         PR_NUMBER=${{ github.event.pull_request.number }}
+  #         LABELS=$(gh pr view $PR_NUMBER --json labels --jq '[.labels[].name]')
+  #         if [[ $LABELS != *"$LABEL_NAME"* ]]; then
+  #           echo "Error: This workflow can only run when the PR has the '$LABEL_NAME' label."
+  #           exit 1
+  #         fi
+  #       env:
+  #         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   create-release:
-    needs: check-label
+    if: contains(github.event.pull_request.labels.*.name, 'release')
     runs-on: ubuntu-latest
     steps:        
     - name: Checkout repository
